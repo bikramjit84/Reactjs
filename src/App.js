@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import DeveloperBio from './DeveloperBio';
 
 function App() {
   return (
@@ -18,7 +19,11 @@ function App() {
         >
           Learn React
         </a>
+
+        <DeveloperBio title="Bikramjit Sanjenbam's Bio" language="JAVA" year="2005"/> 
       </header>
+
+    
     </div>
   );
 }
