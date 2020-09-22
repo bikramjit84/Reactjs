@@ -1,15 +1,36 @@
-import React, { Component } from 'react'
+import React from 'react'
+ import DeveloperBio from './DeveloperBio'
 
-export default class DisplayBio extends Component {
+/*
+    class DisplayBio extends Component {
 
     constructor(props) {
-        
+        super();
+
+        this.state = {
+            developers :[
+                new Developer(1, "Bikramjit", "Sanjenbam", "JAVA", 2005),                
+                new Developer(2, "ABC", "Last", "REACTJS", 2015)
+            ]
+        }
+
     }
     render() {
         return (
-            <div>
-                
-            </div>
-        )
+            this.state.developers.map(dev =><DeveloperBio developer={dev} key={dev.id} />)
+        );
     }
 }
+
+export default   DisplayBio;
+*/
+
+
+function DisplayBio(props)  { 
+    return (
+        props.developers.map(dev =><DeveloperBio developer={dev} key={dev.id} />)
+    );
+     
+}
+
+export default   DisplayBio;
