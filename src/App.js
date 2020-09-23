@@ -5,7 +5,13 @@ import DeveloperBio from './DeveloperBio';
 import DisplayBio from './DisplayBio';
 import Developer from './Developer';
 import AddDeveloper from './AddDeveloper';
-
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route 
+} from "react-router-dom";
+import Home from './Home';
+import Navbar from './Navbar';
 
 class App extends Component {
 
@@ -30,29 +36,28 @@ addDeveloper = (dev) =>{
 
   render() {
       return (
-        <div className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <p>
-              Edit <code>src/App.js</code> and save to reload.
-            </p>
-            <a
-              className="App-link"
-              href="https://reactjs.org"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn React
-            </a>
+ 
+         
+      <Router>
+        <Navbar />
 
-            <DisplayBio  developers={this.state.developers}/> 
+        {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+        <Switch> 
+          <Route exact path="/">
+            <Home /> 
+          </Route>
+
+          <Route path="/bios">
+           <DisplayBio  developers={this.state.developers}/> 
+          </Route>
+          
+          <Route path="/create-bio">
             <AddDeveloper addDeveloper={this.addDeveloper}/>
-
-
-          </header>
-
+          </Route>
         
-        </div>
+        </Switch>
+     </Router>
       );
   }
 }
