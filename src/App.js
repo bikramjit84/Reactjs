@@ -3,8 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import DeveloperBio from './DeveloperBio';
 import DisplayBio from './DisplayBio';
-import Developer from './Developer';
-import AddDeveloper from './AddDeveloper';
+ import AddDeveloper from './AddDeveloper';
 import {
   BrowserRouter as Router,
   Switch,
@@ -17,22 +16,41 @@ class App extends Component {
 
   
   constructor(props) {
-    super();
+    super(props);
 
     this.state = {
-        developers :[
-            new Developer(1, "Bikramjit", "Sanjenbam", "JAVA", 2005),                
-            new Developer(2, "ABC", "Lastss", "REACTJS", 2015)
-        ]
+        developers :[]
     }
 
   }
 
+  componentDidUpdate() {
+    this.getDevelopers();
+  }
+
+
+  getDevelopers() {
+    fetch("https://tech-services-1000201953.uc.r.appspot.com/developers")
+    .then( (response) => response.json()) 
+     .then ((data) => {
+       this.setState({developers:data})
+     }).catch(error => {
+      console.log("Error while retrieving data ", error);
+     })
+  }
+
+  componentDidMount() { 
+    this.getDevelopers();
+  }
+
+
+/*
 addDeveloper = (dev) =>{
   dev.id = this.state.developers.length + 1;
   let newDevs = [...this.state.developers, dev];
   this.setState({developers:newDevs});
 }
+*/
 
   render() {
       return (
@@ -53,7 +71,7 @@ addDeveloper = (dev) =>{
           </Route>
           
           <Route path="/create-bio">
-            <AddDeveloper addDeveloper={this.addDeveloper}/>
+            <AddDeveloper />
           </Route>
         
         </Switch>
