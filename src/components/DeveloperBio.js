@@ -1,5 +1,5 @@
 import React from 'react'
-import './DeveloperBio.css'
+import '../styles/DeveloperBio.css'
  
 function DeveloperBio(props) {
     return (
