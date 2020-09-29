@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Developer from "../models/Developer";
 
 import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import devActions from "../reducers/devReducers";
 
 class AddDeveloper extends Component {
   constructor(props) {
@@ -37,26 +39,12 @@ class AddDeveloper extends Component {
       this.state.yearStarted
       );
 
-      fetch("https://tech-services-1000201953.uc.r.appspot.com/developer", {
-          method: "POST",
-          headers: {
-              "Content-Type": "application/json",
-          },
-          body: JSON.stringify(dev),
-      })
-          .then((response) => response.json())
-          .then((data) => {
-              console.log("Success:", data);
-          })
-          .catch((error) => {
-              console.error("Error:", error);
-          });
 
-
-  //  this.props.addDeveloper(dev);
+      this.props.addDeveloper(dev);
 
     this.clearForm();
   };
+
   clearForm = () => {
     this.setState({
       firstName: "",
@@ -128,4 +116,6 @@ class AddDeveloper extends Component {
   }
 }
 
-export default withRouter(AddDeveloper);
+export default connect(null, {
+  addDeveloper: devActions.addBioActionCreator
+}) (withRouter(AddDeveloper));

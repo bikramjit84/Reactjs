@@ -4,23 +4,19 @@ import {connect} from 'react-redux'
 import devActions from '../reducers/devReducers'
 
 class DisplayBio extends Component  { 
+ constructor(props) {
+     super(props)
+     this.props.addDevsToStore();
+ }
+
  
-
-componentDidMount() {
-    fetch("https://tech-services-1000201953.uc.r.appspot.com/developers")
-    .then( (response) => response.json()) 
-     .then ((data) => {
-
-        this.props.addDevsToStore(data)
-      // this.setState({developers:data})
-     }).catch(error => {
-      console.log("Error while retrieving data ", error);
-     })
-  }
 
     render() {
         return (
-            this.props.developers.map(dev =><DeveloperBio developer={dev} key={dev.id} />)
+            this.props.developers
+            ?
+               this.props.developers.map(dev =><DeveloperBio developer={dev} key={dev.id} />)
+            : <div></div>
         )
     }
     
@@ -30,5 +26,5 @@ componentDidMount() {
 export default connect(({developers}) => ({
     developers:developers
 }), {
-    addDevsToStore : devActions.getAllBiosActionCreator 
+    addDevsToStore : devActions.getAllBiosRequestActionCreator 
 }) ( DisplayBio);
